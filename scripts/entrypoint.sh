@@ -9,6 +9,17 @@ if [ ! -f "/home/runner/.download-complete" ] ; then
     bash /home/scripts/download.sh
 fi ;
 
+# Oneflow
+cd /home/runner/ComfyUI
+printf "Cloning onediff repository...\n"
+git clone https://github.com/siliconflow/onediff.git --recursive
+printf "Installing onediff package...\n"
+cd onediff && pip install -e .
+
+printf "Copying onediff_comfy_nodes to ComfyUI/custom_nodes...\n"
+cd /home/runner/ComfyUI/onediff
+cp -r onediff_comfy_nodes /home/runner/ComfyUI/custom_nodes
+
 # Run user's pre-start script
 cd /home/runner
 if [ -f "/home/runner/scripts/pre-start.sh" ] ; then
